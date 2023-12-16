@@ -15,21 +15,24 @@
 
 ### Primary Index:
 
-- Definition: An index on a set of columns that can uniquely identify a tuple/row
+- **Definition**: An index on a set of columns that can uniquely identify a tuple/row
 - By default, in many RDBMS systems like SQL Server and MySQL's InnoDB, the primary key is the clustered index. However, this can be changed based on specific configurations or requirements.
 - If you don't define a primary key, InnoDB will use the first UNIQUE index where all the key columns are NOT NULL as the clustered index. If no such unique index exists, InnoDB will create a hidden clustered index on a synthetic column.
 
 
 ### Unique Index:
-- Definition: An index that ensures all values in the indexed column(s) are unique, but unlike the primary index, a table can have multiple unique indexes.
+- **Definition**: An index that ensures all values in the indexed column(s) are unique, but unlike the primary index, a table can have multiple unique indexes.
 - For unique indexes, NULL values are considered distinct from each other. This means that, unlike other values that must be unique across all rows, you can have multiple rows with a NULL value in a column that has a unique index.
 -  A unique index can be either clustered or non-clustered, depending on the database configuration and design decisions.
 
 ### Clustered Index:
-- Definition: Determines the physical ordering of data in the table. The table's data rows are stored on disk in the order defined by the clustered index.
-- Storage: The entire row's data is stored at the leaf level of the clustered index or index contains all the cols value saves the time for extra i/o disk seek.
-- Uniqueness: While typically unique (as with primary keys), it can be non-unique in some systems, with some mechanism to ensure row-level uniqueness (like uniqueifiers).
-- Multiplicity: A table can have only one clustered index.
+- **Definition**: Determines the physical ordering of data in the table. The table's data rows are stored on disk in the order defined by the clustered index.
+- **Storage**: The entire row's data is stored at the leaf level of the clustered index or index contains all the cols value saves the time for extra i/o disk seek.
+- **Uniqueness**: While typically unique (as with primary keys), it can be non-unique in some systems, with some mechanism to ensure row-level uniqueness (like uniqueifiers).
+- **Multiplicity**: A table can have only one clustered index as it determines the phsical order of data stored in table.
+- **No Separate Table Data Storage**: In InnoDB, the table data is integrated into the clustered index. This means there is no separate storage for table data outside of this index, which is different from systems like PostgreSQL.
+- **Performance Implications**: The choice of the clustered index (usually the primary key) is crucial in InnoDB as it affects the performance of both read and write operations. Efficiently chosen primary keys can significantly enhance performance.
+- Secondary Indexes: In InnoDB, secondary indexes store the primary key columns as references, not the actual row location (ctid in PostgreSQL).
 
 ### Secondary/Non-clustered Index:
 - Definition: An index that doesn't determine the physical order of data storage but provides a separate structure to improve query performance.
