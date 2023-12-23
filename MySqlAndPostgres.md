@@ -4,7 +4,7 @@
 
 -   **Row-Level Locking**: InnoDB uses row-level locking for write operations. When a row is being updated, it's locked, preventing other write operations on that row until the transaction completes.
     
--   **Non-Locking Reads**: By default, reads in InnoDB under the `REPEATABLE READ` isolation level do not acquire locks on the data they retrieve, works with a snapshot of the database taken at the start of the transaction. This means that read operations can proceed without waiting for other transactions to release their locks.
+-   **Non-Locking Reads**: By default, reads in InnoDB under the `REPEATABLE READ` isolation level do not acquire locks on the data they retrieve, works with a snapshot of the database taken at the start of the transaction. This means that read operations can proceed without waiting for other transactions to release their locks. Here snapshot means transaction will read the versions of rows that were the latest as of the start of the transaction.
 
 **No Snapshot for Writes**: When performing write operations (like `UPDATE` or `INSERT`), InnoDB doesn't use a snapshot of the row. It directly modifies the current version of the row and locks it.
     
