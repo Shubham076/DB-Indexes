@@ -1,3 +1,5 @@
+-- https://www.sqliz.com/mysql-ref/json_table/
+
 create table user
 (
     id   int  not null
@@ -17,6 +19,8 @@ select meta->'$.name' from user;
 
 # searching within json object
 # json_contains (col, val to be searched, path)
+# json_contains_path(col, 'one'/'all', path') returns 1/0 
+    
 SELECT * FROM user WHERE JSON_EXTRACT(meta, '$.name') = 'shubham';
 select * from user where json_contains(meta, '{"name":"shubham"}');
 
